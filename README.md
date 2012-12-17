@@ -38,6 +38,10 @@ Copy and rename the ```hfa/settings.example.py``` and configure it to your local
 
 ```./manage.py populateTestHardware```
 
-### 6. Run the test server
+### 6. Run the development server
 
 ```./manage.py runserver```
+
+### 7. Run the unit tests
+
+```./manage.py test hardware users```
