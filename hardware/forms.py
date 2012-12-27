@@ -4,10 +4,17 @@ from hardware.models import Condition, Category, State
 from django.utils.html import conditional_escape, escape
 from django.utils.encoding import force_unicode
 
+lendlengthtypes = (
+		('1', 'Tag(e)'),
+		('7', 'Woche(n)'),
+		('30', 'Monat(e)'),
+		('356', 'Jahr(e)')
+)
+
 class SelectWithTitles(forms.Select):
 	def __init__(self, *args, **kwargs):
 		super(SelectWithTitles, self).__init__(*args, **kwargs)
-		
+
 		self.titles = {}
 
 	def render_option(self, selected_choices, option_value, option_label):
@@ -28,16 +35,10 @@ class ChoiceFieldWithTitles(forms.ChoiceField):
 		self.widget.titles = dict([(c[1], c[2]) for c in choices])
 
 class HardwareForm(forms.Form):
-	lendlengthtypes = (
-		('1', 'Tag(e)'),
-		('7', 'Woche(n)'),
-		('30', 'Monat(e)'),
-		('356', 'Jahr(e)')
-	)
 	error_css_class = 'error'
 	namewidget=forms.TextInput(attrs={"class":"span3", 'title':"Gib den Namen deiner Hardware ein, am Besten einfach die Produktbezeichnung."})
 	name = forms.CharField(max_length=200, widget=namewidget)
-	descriptionwidget=forms.Textarea(attrs={"class":"span5", 'title':"Beschreibe deine Hardware: welche Macken und Eigenheiten erwarten einen neuen Besitzer eventuell? Was für Besonderheiten hat deine Hardware?"})
+	descriptionwidget=forms.Textarea(attrs={"class":"span6", "rows":15, 'title':"Beschreibe deine Hardware: welche Macken und Eigenheiten erwarten einen neuen Besitzer eventuell? Was für Besonderheiten hat deine Hardware?"})
 	description = forms.CharField(widget=descriptionwidget)
 	conditionwidget=forms.Select(attrs={"class":"span2", 'title':"Wähle den Zustand ehrlich aus; du musst nichts besser ausgeben als es ist."})
 	condition = forms.ModelChoiceField(queryset=Condition.objects.all(), empty_label=None, widget=conditionwidget)
@@ -65,7 +66,7 @@ class HardwareForm(forms.Form):
 
 
 class SendmailForm(forms.Form):
-	text = forms.CharField(widget=forms.Textarea)
+	text = forms.CharField(widget=forms.Textarea(attrs={"class":"span6"}))
 
 class SimpleSearchForm(forms.Form):
 	searchquery = forms.CharField(required=False)
@@ -78,7 +79,7 @@ class SearchForm(SimpleSearchForm):
 		("condition", "Zustand"),
 		("category", "Kategorie"),
 		("state", "Art"),
-		("distance", "Entfernung")
+	#	("distance", "Entfernung")
 	)
 	error_css_class = 'error'
 
