@@ -7,3 +7,4 @@ python:
 install: "pip install -r dependencies.txt"
 # command to run tests
 script: "./manage.py test hardware users"
+# just a travis test, please ignore
