@@ -4,7 +4,8 @@ python:
   - "2.7"
   - "3.2"
 # command to install dependencies
-install: "pip install -r dependencies.txt"
+install:
+  - "cp hfa/settings.example.py hfa/settings.py"
+  - "pip install -r dependencies.txt"
 # command to run tests
 script: "./manage.py test hardware users"
-# just a travis test, please ignore
