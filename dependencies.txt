@@ -6,3 +6,4 @@ sorl-thumbnail
 django-dajaxice
 django-dajax
 django-gravatar2
+pil
